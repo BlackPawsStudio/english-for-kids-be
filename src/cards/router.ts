@@ -5,12 +5,15 @@ import {
 
 const router = Router();
 
+router.get('/', async (req, res) => {
+  return res.sendStatus(200);
+});
 // themes routes
-router.get('/themes', async (req, res) => {
+router.get('/admin/themes', async (req, res) => {
   const themes = await getThemes();
   res.json(themes);
 });
-router.put('/themes/:id/:newName', async (req, res) => {
+router.put('/admin/themes/:id/:newName', async (req, res) => {
   const themeId = req.params.id;
   const { newName } = req.params;
   if (!+themeId) {
@@ -23,7 +26,7 @@ router.put('/themes/:id/:newName', async (req, res) => {
     return res.status(404).send(e);
   }
 });
-router.post('/themes/:newName', async (req, res) => {
+router.post('/admin/themes/:newName', async (req, res) => {
   const data = req.params.newName;
   if (!data) return res.sendStatus(400);
   try {
@@ -32,7 +35,7 @@ router.post('/themes/:newName', async (req, res) => {
     return res.sendStatus(400);
   }
 });
-router.delete('/themes/:id', async (req, res) => {
+router.delete('/admin/themes/:id', async (req, res) => {
   const themeId = req.params.id;
   if (!themeId) {
     return res.sendStatus(400);
@@ -44,7 +47,7 @@ router.delete('/themes/:id', async (req, res) => {
     return res.status(404).send(e);
   }
 });
-router.delete('/cards/:id', async (req, res) => {
+router.delete('/admin/cards/:id', async (req, res) => {
   const cardsId = req.params.id;
   if (!cardsId) {
     return res.sendStatus(400);
@@ -58,11 +61,11 @@ router.delete('/cards/:id', async (req, res) => {
 });
 
 // cards routes
-router.get('/cards', async (req, res) => {
+router.get('/admin/cards', async (req, res) => {
   const cards = await getCards();
   res.json(cards);
 });
-router.delete('/cards/:theme/:id', async (req, res) => {
+router.delete('/admin/cards/:theme/:id', async (req, res) => {
   const cardsTheme = req.params.theme;
   const cardId = req.params.id;
   if (!+cardsTheme) {
@@ -78,7 +81,7 @@ router.delete('/cards/:theme/:id', async (req, res) => {
     return res.status(404).send(e);
   }
 });
-router.put('/cards/:theme/:id/:word/:transl', async (req, res) => {
+router.put('/admin/cards/:theme/:id/:word/:transl', async (req, res) => {
   const cardsTheme = req.params.theme;
   const cardId = req.params.id;
   const { word } = req.params;
@@ -96,7 +99,7 @@ router.put('/cards/:theme/:id/:word/:transl', async (req, res) => {
     return res.status(404).send(e);
   }
 });
-router.put('/reset', async (req, res) => {
+router.put('/admin/reset', async (req, res) => {
   try {
     await resetDb();
     return res.sendStatus(200);
