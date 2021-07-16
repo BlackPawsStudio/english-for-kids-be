@@ -3,7 +3,6 @@
   "scripts": {
     "start": "node ./dist/app.js",
     "build": "npx tsc",
-    "postinstall": "npm run build",
     "lint": "eslint --fix src"
   },
   "engines": {
